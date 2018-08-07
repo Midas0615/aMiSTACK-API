@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "await-to-js": "^2.0.1",
+    "aws-sdk": "^2.286.2",
     "bcrypt": "^1.0.3",
     "bcrypt-promise": "^2.0.0",
     "body-parser": "~1.18.2",

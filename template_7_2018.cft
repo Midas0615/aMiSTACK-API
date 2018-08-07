@@ -1,0 +1,381 @@
+{
+   "Resources": {
+      "CloudRanger": {
+         "Type": "AWS::IAM::Role",
+         "Properties": {
+            "AssumeRolePolicyDocument": {
+               "Statement": [
+                  {
+                     "Action": [
+                        "sts:AssumeRole"
+                     ],
+                     "Effect": "Allow",
+                     "Principal": {
+                        "AWS": "arn:aws:iam::558211695259:role/cloudranger-v2-prod-lambda"
+                     },
+                     "Condition": {
+                        "StringEquals": {
+                           "sts:ExternalId": "cloudranger_mHKNfJfX"
+                        }
+                     }
+                  }
+               ]
+            },
+            "Path": "/",
+            "Policies": [
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "kms:Decrypt",
+                              "kms:ListKeyPolicies",
+                              "kms:GenerateRandom",
+                              "kms:ListRetirableGrants",
+                              "kms:GetKeyPolicy",
+                              "kms:GenerateDataKeyWithoutPlaintext",
+                              "kms:ListResourceTags",
+                              "kms:ReEncryptFrom",
+                              "kms:ListGrants",
+                              "kms:ListKeys",
+                              "kms:Encrypt",
+                              "kms:ListAliases",
+                              "kms:GenerateDataKey",
+                              "kms:CreateAlias",
+                              "kms:ReEncryptTo",
+                              "kms:DescribeKey",
+                              "kms:DeleteAlias",
+                              "kms:CreateGrant",
+                              "kms:RevokeGrant"
+                           ],
+                           "Effect": "Allow",
+                           "Resource": "*"
+                        }
+                     ]
+                  },
+                  "PolicyName": "kmsstatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "redshift:authorizeSnapshotAccess",
+                              "redshift:copyClusterSnapshot",
+                              "redshift:createClusterSnapshot",
+                              "redshift:createTags",
+                              "redshift:deleteClusterSnapshot",
+                              "redshift:deleteTags",
+                              "redshift:describeClusters",
+                              "redshift:describeClusterSnapshots",
+                              "redshift:describeSnapshotCopyGrants",
+                              "redshift:describeTags",
+                              "redshift:revokeSnapshotAccess"
+                           ],
+                           "Effect": "Allow",
+                           "Resource": "*"
+                        }
+                     ]
+                  },
+                  "PolicyName": "redshiftStatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "EC2:DescribeInstanceStatus",
+                              "EC2:CreateVolume",
+                              "EC2:DeregisterImage",
+                              "EC2:RegisterImage",
+                              "EC2:AttachVolume",
+                              "EC2:DescribeAvailabilityZones",
+                              "EC2:DescribeSubnets",
+                              "EC2:DescribeVpcs",
+                              "EC2:DescribeSecurityGroups",
+                              "EC2:CreateSnapshot",
+                              "EC2:DeleteSnapshot",
+                              "EC2:DescribeInstances",
+                              "EC2:DescribeRegions",
+                              "EC2:DescribeSnapshotAttribute",
+                              "EC2:DescribeSnapshots",
+                              "EC2:DescribeTags",
+                              "EC2:DescribeVolumes",
+                              "EC2:RebootInstances",
+                              "EC2:RunInstances",
+                              "EC2:StartInstances",
+                              "EC2:StopInstances",
+                              "EC2:TerminateInstances",
+                              "EC2:CreateImage",
+                              "EC2:DescribeImages",
+                              "EC2:CreateTags",
+                              "EC2:DeleteTags",
+                              "EC2:CopyImage",
+                              "EC2:CopySnapshot",
+                              "EC2:RunCommand",
+                              "EC2:ModifySnapshotAttribute",
+                              "EC2:ModifyImageAttribute"
+                           ],
+                           "Effect": "Allow",
+                           "Resource": "*"
+                        }
+                     ]
+                  },
+                  "PolicyName": "eccstatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "EC2:DescribeIamInstanceProfileAssociations",
+                              "EC2:AssociateIamInstanceProfile",
+                              "EC2:DisassociateIamInstanceProfile",
+                              "ssm:DescribeInstanceInformation",
+                              "ssm:SendCommand",
+                              "ssm:GetCommandInvocation"
+                           ],
+                           "Effect": "Allow",
+                           "Resource": "*"
+                        }
+                     ]
+                  },
+                  "PolicyName": "vssstatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "EC2:DescribeKeyPairs",
+                              "ec2:ModifyVpcAttribute",
+                              "ec2:ModifySubnetAttribute",
+                              "ec2:ModifyNetworkInterfaceAttribute",
+                              "EC2:CreateNetworkInterfacePermission",
+                              "EC2:describeAddresses",
+                              "EC2:describeDhcpOptions",
+                              "EC2:DescribeInternetGateways",
+                              "EC2:DescribeEgressOnlyInternetGateways",
+                              "EC2:DescribeNatGateways",
+                              "EC2:CreateVPC",
+                              "EC2:DeleteVPC",
+                              "EC2:createSubnet",
+                              "EC2:deleteSubnet",
+                              "EC2:CreateRoute",
+                              "EC2:deleteRoute",
+                              "ec2:CreateNetworkAcl",
+                              "ec2:CreateNetworkAclEntry",
+                              "ec2:DeleteNetworkAcl",
+                              "ec2:DeleteNetworkAclEntry",
+                              "EC2:DescribeNetworkAcls",
+                              "ec2:ReplaceNetworkAclAssociation",
+                              "ec2:ReplaceNetworkAclEntry",
+                              "ec2:AllocateAddress",
+                              "ec2:RevokeSecurityGroupEgress",
+                              "ec2:RevokeSecurityGroupIngress",
+                              "ec2:AssociateAddress",
+                              "ec2:ReleaseAddress",
+                              "ec2:DisassociateAddress",
+                              "EC2:CreateRouteTable",
+                              "EC2:deleteRouteTable",
+                              "EC2:AssociateRouteTable",
+                              "EC2:DisassociateRouteTable",
+                              "EC2:CreateInternetGateway",
+                              "ec2:AttachInternetGateway",
+                              "ec2:DetachInternetGateway",
+                              "EC2:deleteInternetGateway",
+                              "EC2:createNatGateway",
+                              "EC2:deleteNatGateway",
+                              "EC2:CreateEgressOnlyInternetGateway",
+                              "EC2:deleteEgressOnlyInternetGateway",
+                              "EC2:CreateDHCPOptions",
+                              "EC2:deleteDHCPOptions",
+                              "EC2:CreateSecurityGroup",
+                              "EC2:DeleteSecurityGroup",
+                              "EC2:AuthorizeSecurityGroupIngress",
+                              "EC2:AuthorizeSecurityGroupEgress",
+                              "EC2:DescribeRouteTables",
+                              "CloudFormation:createstack",
+                              "cloudformation:describestacks",
+                              "cloudformation:describestackevents",
+                              "cloudformation:DescribeStackResource",
+                              "cloudformation:DescribeStackResources",
+                              "cloudformation:DeleteStack"
+                           ],
+                           "Effect": "Allow",
+                           "Resource": "*"
+                        }
+                     ]
+                  },
+                  "PolicyName": "adrstatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "rds:CreateDBSnapshot",
+                              "rds:DescribeDBSnapshots",
+                              "rds:DeleteDBSnapshot",
+                              "rds:CreateDBClusterSnapshot",
+                              "rds:DescribeDBClusterSnapshots",
+                              "rds:DeleteDBClusterSnapshot",
+                              "rds:DescribeDBInstances",
+                              "rds:AddTagsToResource",
+                              "rds:RemoveTagsFromResource",
+                              "rds:ListTagsForResource",
+                              "rds:CopyDBSnapshot",
+                              "rds:CopyDBClusterSnapshot",
+                              "rds:StopDBInstance",
+                              "rds:StartDBInstance",
+                              "rds:ModifyDBSnapshotAttribute",
+                              "rds:ModifyDBClusterSnapshotAttribute"
+                           ],
+                           "Effect": "Allow",
+                           "Resource": "*"
+                        }
+                     ]
+                  },
+                  "PolicyName": "rdsstatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "autoscaling:describeAutoScalingGroups",
+                              "autoscaling:updateAutoScalingGroup"
+                           ],
+                           "Effect": "Allow",
+                           "Resource": "*"
+                        }
+                     ]
+                  },
+                  "PolicyName": "autoscalingstatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "iam:ListInstanceProfiles",
+                              "iam:AddRoleToInstanceProfile",
+                              "iam:RemoveRoleFromInstanceProfile",
+                              "iam:ListInstanceProfilesForRole",
+                              "iam:PassRole",
+                              "iam:GetInstanceProfile",
+                              "iam:GetRole",
+                              "iam:ListAttachedRolePolicies",
+                              "iam:ListPolicies",
+                              "iam:AttachRolePolicy"
+                           ],
+                           "Resource": "*",
+                           "Effect": "Allow"
+                        }
+                     ]
+                  },
+                  "PolicyName": "iamstatements"
+               },
+               {
+                  "PolicyDocument": {
+                     "Statement": [
+                        {
+                           "Action": [
+                              "tag:GetResources",
+                              "tag:TagResources"
+                           ],
+                           "Resource": "*",
+                           "Effect": "Allow"
+                        }
+                     ]
+                  },
+                  "PolicyName": "tagstatements"
+               }
+            ]
+         }
+      },
+      "CRConsistentSnapshotPolicy": {
+         "Type": "AWS::IAM::ManagedPolicy",
+         "Properties": {
+            "PolicyDocument": {
+               "Version": "2012-10-17",
+               "Statement": [
+                  {
+                     "Action": [
+                        "ec2:createsnapshot",
+                        "ec2:describeinstances",
+                        "ec2messages:*",
+                        "ssm:updateinstanceinformation",
+                        "ssm:listassociations",
+                        "ec2:createimage"
+                     ],
+                     "Effect": "Allow",
+                     "Resource": "*"
+                  }
+               ]
+            },
+            "ManagedPolicyName": "cloudranger-consistent-snapshot-policy-mHKNfJfX"
+         }
+      },
+      "CRConsistentSnapshotRole": {
+         "Type": "AWS::IAM::Role",
+         "Properties": {
+            "RoleName": "cloudranger-consistent-snapshot-role-mHKNfJfX",
+            "AssumeRolePolicyDocument": {
+               "Version": "2012-10-17",
+               "Statement": [
+                  {
+                     "Effect": "Allow",
+                     "Principal": {
+                        "Service": [
+                           "ec2.amazonaws.com"
+                        ]
+                     },
+                     "Action": [
+                        "sts:AssumeRole"
+                     ]
+                  }
+               ]
+            },
+            "Path": "/",
+            "ManagedPolicyArns": [
+               {
+                  "Ref": "CRConsistentSnapshotPolicy"
+               }
+            ]
+         },
+         "DependsOn": [
+            "CRConsistentSnapshotPolicy"
+         ]
+      },
+      "CRConsistentSnapshotInstanceProfile": {
+         "Type": "AWS::IAM::InstanceProfile",
+         "Properties": {
+            "Roles": [
+               "cloudranger-consistent-snapshot-role-mHKNfJfX"
+            ],
+            "InstanceProfileName": "cloudranger-consistent-snapshot-instance-profile-mHKNfJfX"
+         },
+         "DependsOn": [
+            "CRConsistentSnapshotRole"
+         ]
+      }
+   },
+   "Outputs": {
+      "ARN": {
+         "Description": "This is the ARN for the role that you need to save along with your credentials in CloudRanger. https://app.cloudranger.com/#/credential",
+         "Value": {
+            "Fn::GetAtt": [
+               "CloudRanger",
+               "Arn"
+            ]
+         }
+      },
+      "Name": {
+         "Description": "This is the name of the Role that has been created to give CloudRanger access to your AWS Environment",
+         "Value": {
+            "Ref": "CloudRanger"
+         }
+      }
+   }
+}

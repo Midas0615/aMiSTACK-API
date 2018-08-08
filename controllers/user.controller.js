@@ -7,9 +7,7 @@ const create = async function(req, res){
 
     if(!body.unique_key && !body.email && !body.phone){
         return ReE(res, 'Please enter an email to register.');
-    } else if(!body.password){
-        return ReE(res, 'Please enter a password to register.');
-    }else{
+    } else{
         let err, user;
 
         [err, user] = await to(authService.createUser(body));

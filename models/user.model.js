@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     var Model = sequelize.define('User', {
         firstName : DataTypes.STRING,
         lastName  : DataTypes.STRING,
-        email     : {type: DataTypes.STRING, allowNull: true, unique: true, validate: { isEmail: {msg: "Email invalid."} }},
-        phone     : {type: DataTypes.STRING, allowNull: true, unique: true},
-        password  : {type: DataTypes.STRING, defaultValue: '123456'},
+        email     : {type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: {msg: "Email invalid."} }},
+        phone     : {type: DataTypes.STRING, allowNull: true},
+        password  : {type: DataTypes.STRING},
         role      : DataTypes.STRING
     });
 
@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     Model.beforeSave(async (user, options) => {
+        if(!user.password)
+            user.password = '123456';
+
         let err;
         if (user.changed('password')){
             let salt, hash

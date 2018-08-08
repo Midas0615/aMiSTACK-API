@@ -6,7 +6,7 @@ const create = async function(req, res){
     const body = req.body;
 
     if(!body.unique_key && !body.email && !body.phone){
-        return ReE(res, 'Please enter an email or phone number to register.');
+        return ReE(res, 'Please enter an email to register.');
     } else if(!body.password){
         return ReE(res, 'Please enter a password to register.');
     }else{
@@ -27,15 +27,26 @@ const get = async function(req, res){
 }
 module.exports.get = get;
 
-const update = async function(req, res){
-    let err, user, data
-    user = req.user;
-    data = req.body;
-    user.set(data);
+const getAll = async function(req, res){
+    let err, users;  
+    [err, users] = await to(User.findAll());
+    return ReS(res, {data:users});
+}
+module.exports.getAll = getAll;
 
+const update = async function(req, res){
+    let email = req.body.email;
+    [err, user] = await to(User.findOne({where: {email: email}}));
+
+    if(!user){
+        err = 'The email address doesn\'t exist';
+        return ReE(res, err);
+    }
+
+    user.set(req.body);
     [err, user] = await to(user.save());
     if(err){
-        if(err.message=='Validation error') err = 'The email address or phone number is already in use';
+        if(err.message=='Validation error') err = 'Update error';
         return ReE(res, err);
     }
     return ReS(res, {message :'Updated User: '+user.email});
@@ -43,19 +54,23 @@ const update = async function(req, res){
 module.exports.update = update;
 
 const remove = async function(req, res){
-    let user, err;
-    user = req.user;
+    let email = req.body.email;
+    [err, user] = await to(User.findOne({where: {email: email}}));
+
+    if(!user){
+        err = 'The email address doesn\'t exist';
+        return ReE(res, err);
+    }
 
     [err, user] = await to(user.destroy());
     if(err) return ReE(res, 'error occured trying to delete user');
 
-    return ReS(res, {message:'Deleted User'}, 204);
+    return ReS(res, {message:'Deleted User'});
 }
 module.exports.remove = remove;
 
 
-const login = async function(req, res){
-console.log(req.body);    
+const login = async function(req, res){   
     let err, user;
 
     [err, user] = await to(authService.authUser(req.body));

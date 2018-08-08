@@ -7,8 +7,8 @@ const CONFIG            = require('../config/config');
 
 module.exports = (sequelize, DataTypes) => {
     var Model = sequelize.define('User', {
-        first     : DataTypes.STRING,
-        last      : DataTypes.STRING,
+        firstName : DataTypes.STRING,
+        lastName  : DataTypes.STRING,
         email     : {type: DataTypes.STRING, allowNull: true, unique: true, validate: { isEmail: {msg: "Email invalid."} }},
         phone     : {type: DataTypes.STRING, allowNull: true, unique: true},
         password  : DataTypes.STRING,

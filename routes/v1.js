@@ -17,11 +17,13 @@ router.get('/', function(req, res, next) {
   res.json({status:"success", message:"Parcel Pending API", data:{"version_number":"v1.0.0"}})
 });
 
-router.post(    '/users',           UserController.create);                                                    // C
-router.get(     '/users',           passport.authenticate('jwt', {session:false}), UserController.get);        // R
-router.put(     '/users',           passport.authenticate('jwt', {session:false}), UserController.update);     // U
-router.delete(  '/users',           passport.authenticate('jwt', {session:false}), UserController.remove);     // D
 router.post(    '/auth/login',     UserController.login);
+
+router.post(    '/user',           UserController.create);                                                    // C
+router.get(     '/user',           passport.authenticate('jwt', {session:false}), UserController.get);        // R
+router.put(     '/user',           passport.authenticate('jwt', {session:false}), UserController.update);     // U
+router.delete(  '/user',           passport.authenticate('jwt', {session:false}), UserController.remove);     // D
+router.get(     '/user/all',       passport.authenticate('jwt', {session:false}), UserController.getAll);     // R
 
 router.post(    '/companies',             passport.authenticate('jwt', {session:false}), CompanyController.create);                  // C
 router.get(     '/companies',             passport.authenticate('jwt', {session:false}), CompanyController.getAll);                  // R

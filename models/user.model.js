@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         lastName  : DataTypes.STRING,
         email     : {type: DataTypes.STRING, allowNull: true, unique: true, validate: { isEmail: {msg: "Email invalid."} }},
         phone     : {type: DataTypes.STRING, allowNull: true, unique: true},
-        password  : DataTypes.STRING,
+        password  : {type: DataTypes.STRING, defaultValue: '123456'},
         role      : DataTypes.STRING
     });
 

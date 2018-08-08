@@ -25,7 +25,7 @@ const createUser = async (userInfo) => {
     auth_info.status='create';
 
     unique_key = getUniqueKeyFromBody(userInfo);
-    if(!unique_key) TE('An email or phone number was not entered.');
+    if(!unique_key) TE('An email was not entered.');
 
     if(validator.isEmail(unique_key)){
         auth_info.method = 'email';
@@ -45,7 +45,7 @@ const createUser = async (userInfo) => {
 
         return user;
     }else{
-        TE('A valid email or phone number was not entered.');
+        TE('A valid email was not entered.');
     }
 }
 module.exports.createUser = createUser;
@@ -54,12 +54,8 @@ const authUser = async function(userInfo){//returns token
     let unique_key;
     let auth_info = {};
     auth_info.status = 'login';
-console.log("=========================");
-    console.log(userInfo);
-
     unique_key = getUniqueKeyFromBody(userInfo);
-console.log("-------------------")    
-console.log(unique_key);
+
     if(!unique_key) TE('Please enter an email to login');
 
 
@@ -79,7 +75,7 @@ console.log(unique_key);
         if(err) TE(err.message);
 
     }else{
-        TE('A valid email or phone number was not entered');
+        TE('A valid email was not entered');
     }
 
     if(!user) TE('Not registered');

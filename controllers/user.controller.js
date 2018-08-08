@@ -55,8 +55,7 @@ module.exports.remove = remove;
 
 
 const login = async function(req, res){
-console.log(1);    
-    const body = req.body;
+console.log(req.body);    
     let err, user;
 
     [err, user] = await to(authService.authUser(req.body));

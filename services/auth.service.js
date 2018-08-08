@@ -54,9 +54,13 @@ const authUser = async function(userInfo){//returns token
     let unique_key;
     let auth_info = {};
     auth_info.status = 'login';
-    unique_key = getUniqueKeyFromBody(userInfo);
+console.log("=========================");
+    console.log(userInfo);
 
-    if(!unique_key) TE('Please enter an email or phone number to login');
+    unique_key = getUniqueKeyFromBody(userInfo);
+console.log("-------------------")    
+console.log(unique_key);
+    if(!unique_key) TE('Please enter an email to login');
 
 
     if(!userInfo.password) TE('Please enter a password to login');

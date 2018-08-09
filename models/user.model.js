@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         email     : {type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: {msg: "Email invalid."} }},
         phone     : {type: DataTypes.STRING, allowNull: true},
         password  : {type: DataTypes.STRING},
-        role      : DataTypes.STRING
+        role      : {type: DataTypes.STRING, defaultValue: 2}
     });
 
     Model.associate = function(models){

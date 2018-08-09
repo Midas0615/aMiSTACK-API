@@ -8,7 +8,7 @@ const create = async function(req, res){
     const body = req.body;
 
     if(!body.unique_key && !body.email && !body.phone){
-        return ReE(res, 'Please enter an email to register.');
+        return ReE(res, 'Please enter an email to register.', 422);
     } else{
         let err, user;
 
@@ -40,15 +40,12 @@ const update = async function(req, res){
 
     if(!user){
         err = 'The email address doesn\'t exist';
-        return ReE(res, err);
+        return ReE(res, err, 422);
     }
 
     user.set(req.body);
     [err, user] = await to(user.save());
-    if(err){
-        if(err.message=='Validation error') err = 'Update error';
-        return ReE(res, err);
-    }
+    if(err) return ReE(res, err, 422);
     return ReS(res, {message :'Updated User: '+user.email});
 }
 module.exports.update = update;
@@ -59,11 +56,11 @@ const remove = async function(req, res){
 
     if(!user){
         err = 'The email address doesn\'t exist';
-        return ReE(res, err);
+        return ReE(res, err, 422);
     }
 
     [err, user] = await to(user.destroy());
-    if(err) return ReE(res, 'error occured trying to delete user');
+    if(err) return ReE(res, 'error occured trying to delete user', 422);
 
     return ReS(res, {message:'Deleted User'});
 }

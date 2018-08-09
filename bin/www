@@ -20,17 +20,17 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 /**
  * Create HTTPS server.
  */
-// const server = https.createServer({
-//   key: fs.readFileSync('./server.key'),
-//   cert: fs.readFileSync('./server.cert'),
-//   requestCert: false,
-//   rejectUnauthorized: false
-// }, app);
+const server = https.createServer({
+  key: fs.readFileSync('./server.key'),
+  cert: fs.readFileSync('./server.cert'),
+  requestCert: false,
+  rejectUnauthorized: false
+}, app);
 /**
  * Listen on provided port, on all network interfaces.
  */

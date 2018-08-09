@@ -1,6 +1,8 @@
 const { User }          = require('../models');
 const authService       = require('../services/auth.service');
 const { to, ReE, ReS }  = require('../services/util.service');
+const db            = require('../models');
+const Op = db.sequelize.Op;
 
 const create = async function(req, res){
     const body = req.body;
@@ -27,7 +29,7 @@ module.exports.get = get;
 
 const getAll = async function(req, res){
     let err, users;  
-    [err, users] = await to(User.findAll());
+    [err, users] = await to(User.findAll({where: {role: {[Op.ne]: 1}}}));
     return ReS(res, {data:users});
 }
 module.exports.getAll = getAll;

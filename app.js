@@ -50,22 +50,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-app.use(function (req, res, next) {
-  console.log('***** New Request *****');
-  console.log(req.method + ' ' + req.path);
-
-  res.header('Access-Control-Allow-Origin', '*');
-
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,PATCH,DELETE');
-    res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
-
-    return res.send(200);
-  }
-
-  next();
-});
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
